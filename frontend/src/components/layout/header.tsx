@@ -40,9 +40,9 @@ export function Header() {
           <Link href="/about" className={`transition-colors ${pathname === '/about' ? 'text-primary' : 'hover:text-primary'}`}>About Us</Link>
         </nav>
 
-        <div className="flex items-center gap-4">
-          {/* Favorites Icon */}
-          <Link href="/favorites" className="relative p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="View Favorites">
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Favorites Icon (Hidden on mobile) */}
+          <Link href="/favorites" className="relative hidden md:block p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="View Favorites">
             <Heart className="w-5 h-5" />
             {mounted && favorites.length > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(239,68,68,0.5)]">
@@ -83,6 +83,15 @@ export function Header() {
               <Link href="/products" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/products' ? 'text-primary' : 'text-foreground'}`}>Products</Link>
               <Link href="/features" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/features' ? 'text-primary' : 'text-foreground'}`}>Features</Link>
               <Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/about' ? 'text-primary' : 'text-foreground'}`}>About Us</Link>
+              
+              <div className="h-px w-full bg-foreground/10 my-2"></div>
+              
+              <Link href="/favorites" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between text-lg font-bold text-foreground">
+                <span>My Wishlist</span>
+                {mounted && favorites.length > 0 && (
+                  <span className="bg-red-500 text-white text-xs px-2.5 py-1 rounded-full">{favorites.length}</span>
+                )}
+              </Link>
             </div>
           </motion.div>
         )}
