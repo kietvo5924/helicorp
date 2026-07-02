@@ -10,7 +10,18 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-    # volumes:
-    #   - ./frontend:/app
-    #   - /app/node_modules
-    #   - /app/.next
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - helicorp_data:/data
+    restart: unless-stopped
+
+volumes:
+  helicorp_data:
