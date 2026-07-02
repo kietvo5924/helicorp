@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/features/cart-drawer";
 import { ChatbotFAB } from "@/components/features/chatbot-fab";
+import { ProductModal } from "@/components/features/product-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
           <Header />
           <CartDrawer />
           <ChatbotFAB />
+          <ProductModal />
           {children}
           <Footer />
         </ThemeProvider>

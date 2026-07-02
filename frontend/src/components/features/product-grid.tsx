@@ -1,19 +1,27 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { GlassPanel } from "../ui/glass-panel";
 import { useAppStore, Product } from "@/store/useAppStore";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, Heart, Search } from "lucide-react";
+import { ShoppingCart, Heart, Search, Filter } from "lucide-react";
 
 export function ProductGrid() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [activeTag, setActiveTag] = useState<string>("All");
+  
+  const initialPage = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const itemsPerPage = 6;
 
-  const { addToCart, favorites, toggleFavorite } = useAppStore();
+  const { openProductModal, favorites, toggleFavorite } = useAppStore();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,21 +40,44 @@ export function ProductGrid() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = useMemo(() => {
-    return products.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.description?.toLowerCase().includes(searchQuery.toLowerCase()));
-  }, [products, searchQuery]);
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    products.forEach(p => {
+      if (p.tag) tags.add(p.tag);
+    });
+    return ["All", ...Array.from(tags)];
+  }, [products]);
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const filteredProducts = useMemo(() => {
+    return products.filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.description?.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesTag = activeTag === "All" || p.tag === activeTag;
+      return matchesSearch && matchesTag;
+    });
+  }, [products, searchQuery, activeTag]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage));
   
   const currentProducts = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
     return filteredProducts.slice(start, start + itemsPerPage);
   }, [filteredProducts, currentPage]);
 
-  // Reset page when search changes
+  // Reset page when search or tag changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery]);
+  }, [searchQuery, activeTag]);
+
+  // Sync page to URL
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (currentPage > 1) {
+      params.set("page", currentPage.toString());
+    } else {
+      params.delete("page");
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [currentPage, pathname, router, searchParams]);
 
   return (
     <section id="products" className="py-12 w-full container mx-auto px-6">
@@ -54,16 +85,38 @@ export function ProductGrid() {
         <h2 className="text-4xl font-bold mb-4">Premium Ecosystem</h2>
         <p className="text-foreground/60 max-w-2xl mx-auto mb-8">Discover our latest innovations designed to push the boundaries of technology and design.</p>
         
-        {/* Search Bar */}
-        <div className="relative max-w-md mx-auto mb-8">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/50" />
-          <input 
-            type="text" 
-            placeholder="Search products..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-foreground/5 border border-foreground/10 rounded-full focus:outline-none focus:border-primary transition-colors text-foreground"
-          />
+        {/* Filters and Search */}
+        <div className="max-w-3xl mx-auto mb-12 flex flex-col items-center gap-6">
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/50" />
+            <input 
+              type="text" 
+              placeholder="Search products..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-foreground/5 border border-foreground/10 rounded-full focus:outline-none focus:border-primary transition-colors text-foreground"
+            />
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex items-center gap-2 mr-2 text-foreground/50">
+              <Filter className="w-4 h-4" />
+              <span className="text-sm font-bold">Filter:</span>
+            </div>
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  activeTag === tag 
+                    ? 'bg-primary text-white shadow-[0_0_10px_rgba(10,132,255,0.4)]' 
+                    : 'bg-foreground/5 hover:bg-foreground/10 text-foreground/70'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -113,9 +166,9 @@ export function ProductGrid() {
                         <div className="flex items-center justify-between mt-auto">
                           <span className="text-2xl font-bold text-primary">${product.price.toLocaleString()}</span>
                           <button 
-                            onClick={() => addToCart(product)}
+                            onClick={() => openProductModal(product)}
                             className="px-6 py-3 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 shadow-lg"
-                            aria-label={`Add ${product.name} to cart`}
+                            aria-label={`View options for ${product.name}`}
                           >
                             <ShoppingCart className="w-4 h-4" />
                             Add to Cart

@@ -88,6 +88,7 @@ export function CartDrawer() {
                             
                             <div className="flex-1">
                               <span className="block font-bold mb-1 text-base">{item.name}</span>
+                              {item.variant && <span className="block text-xs font-medium text-primary mb-1">{item.variant}</span>}
                               <span className="text-foreground/70 font-medium">Qty: {item.quantity}</span>
                             </div>
                           </div>
@@ -102,18 +103,6 @@ export function CartDrawer() {
                     </div>
                   )}
                 </div>
-
-                {cartItemCount > 0 && (
-                  <div className="p-4 border-t border-foreground/10">
-                    <button 
-                      onClick={handleCheckout}
-                      disabled={loading || success}
-                      className="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-opacity disabled:opacity-70"
-                    >
-                      {loading ? "Processing..." : success ? "Order Placed" : "Checkout"}
-                    </button>
-                  </div>
-                )}
                 
                 {/* Checkout Footer */}
                 {cartItemCount > 0 && (
@@ -124,10 +113,11 @@ export function CartDrawer() {
                     </div>
 
                     <button 
-                      onClick={() => alert('Checkout initiated! (Mock feature)')}
-                      className="w-full py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(10,132,255,0.4)] flex items-center justify-center gap-2"
+                      onClick={handleCheckout}
+                      disabled={loading || success}
+                      className="w-full py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(10,132,255,0.4)] flex items-center justify-center gap-2 disabled:opacity-70 disabled:hover:scale-100 disabled:shadow-none"
                     >
-                      Checkout Now
+                      {loading ? "Processing..." : success ? "Order Placed" : "Checkout Now"}
                     </button>
                   </div>
                 )}

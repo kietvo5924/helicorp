@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function FavoritesPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const { favorites, toggleFavorite, addToCart } = useAppStore();
+  const { favorites, toggleFavorite, openProductModal } = useAppStore();
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
@@ -80,7 +80,7 @@ export default function FavoritesPage() {
                           <div className="flex items-center justify-between mt-auto">
                             <span className="text-2xl font-bold text-primary">${product.price.toLocaleString()}</span>
                             <button 
-                              onClick={() => addToCart(product)}
+                              onClick={() => openProductModal(product)}
                               className="px-6 py-3 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 shadow-lg"
                             >
                               <ShoppingCart className="w-4 h-4" />
