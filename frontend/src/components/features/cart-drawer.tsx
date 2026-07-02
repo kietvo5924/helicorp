@@ -1,7 +1,6 @@
 "use client";
 
 import { useAppStore } from "@/store/useAppStore";
-import { GlassPanel } from "../ui/glass-panel";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -53,11 +52,11 @@ export function CartDrawer() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-full max-w-sm z-50 p-4"
+              className="fixed top-0 right-0 h-full w-full max-w-md bg-background border-l border-foreground/10 shadow-2xl z-50 flex flex-col"
             >
-              <GlassPanel className="h-full flex flex-col">
-                <div className="p-4 border-b border-foreground/10 flex justify-between items-center text-foreground">
-                  <h2 className="text-xl font-bold">Your Cart</h2>
+              <div className="h-full flex flex-col overflow-hidden">
+                <div className="flex justify-between items-center p-6 border-b border-foreground/10">
+                  <h2 className="text-2xl font-bold text-foreground">Your Cart</h2>
                   <button onClick={toggleCart} className="p-1 hover:bg-foreground/10 rounded-full transition-colors" aria-label="Close cart">
                     <X className="w-6 h-6" />
                   </button>
@@ -71,14 +70,14 @@ export function CartDrawer() {
                   ) : (
                     <div className="w-full space-y-4">
                       {cartItems.map((item) => (
-                        <div key={item.id} className="flex justify-between items-center bg-foreground/5 border border-foreground/10 p-4 rounded-xl text-foreground text-sm">
+                        <div key={item.id} className="flex justify-between items-center bg-foreground/5 border border-foreground/10 p-4 rounded-xl text-foreground text-sm hover:bg-foreground/10 transition-colors">
                           <div className="flex-1">
-                            <span className="block font-bold mb-1">{item.name}</span>
+                            <span className="block font-bold mb-1 text-base">{item.name}</span>
                             <span className="text-foreground/70 font-medium">Qty: {item.quantity}</span>
                           </div>
                           <div className="flex items-center gap-4">
-                            <span className="font-bold text-primary">${(item.price * item.quantity).toLocaleString()}</span>
-                            <button onClick={() => removeFromCart(item.id)} className="p-2 hover:bg-foreground/10 rounded-full transition-colors text-red-500" aria-label="Remove item">
+                            <span className="font-bold text-primary text-lg">${(item.price * item.quantity).toLocaleString()}</span>
+                            <button onClick={() => removeFromCart(item.id)} className="p-2 hover:bg-red-500/20 rounded-full transition-colors text-red-500" aria-label="Remove item">
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
@@ -99,7 +98,7 @@ export function CartDrawer() {
                     </button>
                   </div>
                 )}
-              </GlassPanel>
+              </div>
             </motion.div>
           </>
         )}
