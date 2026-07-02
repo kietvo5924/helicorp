@@ -1,0 +1,28 @@
+# BMad & AI Agent files (Không đưa lên nộp bài)
+_bmad/
+_bmad-output/
+.agents/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.local
+
+# Node (Frontend)
+node_modules/
+npm-debug.log*
+.next/
+out/
+build/
+
+# Go (Backend)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
