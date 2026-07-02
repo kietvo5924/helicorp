@@ -18,9 +18,9 @@ export default function FavoritesPage() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/products`)
       .then(res => res.json())
       .then(data => {
-        setProducts(data.products || []);
+        setProducts(data.data || []);
         setLoading(false);
-      });
+      })
   }, []);
 
   const favoriteProducts = products.filter(p => favorites.includes(p.id));
