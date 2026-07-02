@@ -111,22 +111,22 @@ export default function AboutPage() {
       </section>
 
       {/* Bento Grid Values */}
-      <section className="py-32 bg-foreground text-background">
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-gradient-to-b from-background via-primary/5 to-background text-foreground relative">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-6">Our DNA</h2>
-            <p className="text-xl text-background/60 max-w-2xl mx-auto">The foundational principles that drive every decision, every line of code, and every product we ship.</p>
+            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">The foundational principles that drive every decision, every line of code, and every product we ship.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* Large Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="md:col-span-2 bg-background/5 border border-background/10 p-12 rounded-[2rem] hover:bg-background/10 transition-colors"
+              className="md:col-span-2 bg-foreground/5 backdrop-blur-md border border-foreground/10 p-12 rounded-[2rem] hover:bg-foreground/10 transition-colors"
             >
               <Zap className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-3xl font-bold mb-4">Unrelenting Performance</h3>
-              <p className="text-background/70 text-lg leading-relaxed">
+              <p className="text-foreground/70 text-lg leading-relaxed">
                 Speed is not a feature; it is a prerequisite. We utilize custom silicon optimization, cutting-edge edge computing, and zero-allocation memory architectures to ensure our ecosystem responds faster than thought.
               </p>
             </motion.div>
@@ -134,11 +134,11 @@ export default function AboutPage() {
             {/* Square Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-              className="bg-background/5 border border-background/10 p-12 rounded-[2rem] hover:bg-background/10 transition-colors"
+              className="bg-foreground/5 backdrop-blur-md border border-foreground/10 p-12 rounded-[2rem] hover:bg-foreground/10 transition-colors"
             >
               <Shield className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Absolute Privacy</h3>
-              <p className="text-background/70 leading-relaxed">
+              <p className="text-foreground/70 leading-relaxed">
                 Your data is your own. End-to-end encryption and decentralized storage form the bedrock of our trust model.
               </p>
             </motion.div>
@@ -146,11 +146,11 @@ export default function AboutPage() {
             {/* Square Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
-              className="bg-background/5 border border-background/10 p-12 rounded-[2rem] hover:bg-background/10 transition-colors"
+              className="bg-foreground/5 backdrop-blur-md border border-foreground/10 p-12 rounded-[2rem] hover:bg-foreground/10 transition-colors"
             >
               <Cpu className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Adaptive AI</h3>
-              <p className="text-background/70 leading-relaxed">
+              <p className="text-foreground/70 leading-relaxed">
                 Machine learning that adapts to your workflow locally, without compromising your privacy or draining your battery.
               </p>
             </motion.div>
@@ -158,12 +158,12 @@ export default function AboutPage() {
             {/* Large Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-              className="md:col-span-2 bg-background/5 border border-background/10 p-12 rounded-[2rem] hover:bg-background/10 transition-colors overflow-hidden relative"
+              className="md:col-span-2 bg-foreground/5 backdrop-blur-md border border-foreground/10 p-12 rounded-[2rem] hover:bg-foreground/10 transition-colors overflow-hidden relative"
             >
               <div className="relative z-10">
                 <Globe className="w-12 h-12 text-primary mb-6" />
                 <h3 className="text-3xl font-bold mb-4">Global Ecosystem</h3>
-                <p className="text-background/70 text-lg leading-relaxed max-w-xl">
+                <p className="text-foreground/70 text-lg leading-relaxed max-w-xl">
                   A seamless integration across all your devices. Start a task on your phone, seamlessly continue on your tablet, and finalize on your desktop. One continuous, unbroken workflow.
                 </p>
               </div>

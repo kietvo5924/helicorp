@@ -4,13 +4,14 @@ import { Moon, Sun, Menu, ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { toggleCart, cartItemCount, favorites } = useAppStore();
   const pathname = usePathname();
 
@@ -65,9 +66,27 @@ export function Header() {
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
           )}
-          <button className="md:hidden p-2 text-foreground" aria-label="Open Menu"><Menu className="w-6 h-6" /></button>
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-foreground" aria-label="Open Menu"><Menu className="w-6 h-6" /></button>
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-foreground/10 overflow-hidden shadow-2xl"
+          >
+            <div className="flex flex-col p-6 gap-6">
+              <Link href="/products" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/products' ? 'text-primary' : 'text-foreground'}`}>Products</Link>
+              <Link href="/features" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/features' ? 'text-primary' : 'text-foreground'}`}>Features</Link>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold ${pathname === '/about' ? 'text-primary' : 'text-foreground'}`}>About Us</Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
