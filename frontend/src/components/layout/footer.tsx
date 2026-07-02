@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
-    <footer className="w-full bg-background text-foreground py-16 border-t border-foreground/10 transition-colors duration-300">
+    <footer className="w-full bg-foreground/[0.03] text-foreground py-16 border-t border-foreground/10 transition-colors duration-300">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-4">
@@ -10,26 +12,26 @@ export function Footer() {
           <p className="text-sm text-foreground/70">Innovating the future, today. Premium tech solutions for the modern world.</p>
         </div>
         <div>
-          <h4 className="font-bold text-foreground mb-4">Products</h4>
+          <h4 className="font-bold text-foreground mb-4">Ecosystem</h4>
           <ul className="space-y-2 text-sm text-foreground/70">
-            <li><a href="#" className="hover:text-primary transition-colors">Quantum Series</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Vision Pro</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Core X Workstations</a></li>
+            <li><Link href="/products" className="hover:text-primary transition-colors">All Products</Link></li>
+            <li><Link href="/features" className="hover:text-primary transition-colors">Technology</Link></li>
+            <li><Link href="/about" className="hover:text-primary transition-colors">Our Vision</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold text-foreground mb-4">Company</h4>
           <ul className="space-y-2 text-sm text-foreground/70">
-            <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+            <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
+            <li><Link href="#" className="hover:text-primary transition-colors">Careers</Link></li>
+            <li><Link href="#" className="hover:text-primary transition-colors">Contact</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold text-foreground mb-4">Legal</h4>
           <ul className="space-y-2 text-sm text-foreground/70">
-            <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
+            <li><Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+            <li><Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link></li>
           </ul>
         </div>
       </div>
