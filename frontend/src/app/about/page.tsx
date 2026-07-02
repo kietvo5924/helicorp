@@ -54,19 +54,19 @@ export default function AboutPage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              <h3 className="text-5xl md:text-7xl font-black text-primary mb-2">10M+</h3>
+              <div className="text-5xl md:text-7xl font-black text-primary mb-2">10M+</div>
               <p className="text-foreground/60 font-medium tracking-widest uppercase">Active Users</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-              <h3 className="text-5xl md:text-7xl font-black text-primary mb-2">50+</h3>
+              <div className="text-5xl md:text-7xl font-black text-primary mb-2">50+</div>
               <p className="text-foreground/60 font-medium tracking-widest uppercase">Countries</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
-              <h3 className="text-5xl md:text-7xl font-black text-primary mb-2">99.9%</h3>
+              <div className="text-5xl md:text-7xl font-black text-primary mb-2">99.9%</div>
               <p className="text-foreground/60 font-medium tracking-widest uppercase">Uptime</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}>
-              <h3 className="text-5xl md:text-7xl font-black text-primary mb-2">0</h3>
+              <div className="text-5xl md:text-7xl font-black text-primary mb-2">0</div>
               <p className="text-foreground/60 font-medium tracking-widest uppercase">Compromises</p>
             </motion.div>
           </div>

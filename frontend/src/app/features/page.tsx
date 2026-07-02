@@ -53,7 +53,7 @@ export default function FeaturesPage() {
               <div className="w-16 h-16 rounded-2xl bg-background border border-foreground/10 flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all shadow-[0_0_15px_rgba(10,132,255,0.15)] group-hover:shadow-[0_0_25px_rgba(10,132,255,0.5)]">
                 {feature.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+              <h2 className="text-2xl font-bold mb-4">{feature.title}</h2>
               <p className="text-foreground/70 text-lg leading-relaxed">
                 {feature.desc}
               </p>
