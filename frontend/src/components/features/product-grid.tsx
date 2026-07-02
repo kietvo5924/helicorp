@@ -23,6 +23,27 @@ export function ProductGrid() {
 
   const { openProductModal, favorites, toggleFavorite } = useAppStore();
 
+  // Scroll Restoration Logic
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('helicorp_scroll', window.scrollY.toString());
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      const savedScroll = sessionStorage.getItem('helicorp_scroll');
+      if (savedScroll) {
+        setTimeout(() => {
+          window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
+          sessionStorage.removeItem('helicorp_scroll');
+        }, 100);
+      }
+    }
+  }, [loading]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
