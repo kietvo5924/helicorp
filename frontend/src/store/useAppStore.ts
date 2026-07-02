@@ -19,6 +19,7 @@ interface AppState {
   cartTotal: number;
   toggleCart: () => void;
   addToCart: (product: Product) => void;
+  removeFromCart: (productId: number) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -38,5 +39,20 @@ export const useAppStore = create<AppState>((set) => ({
     const count = newItems.reduce((acc, item) => acc + item.quantity, 0);
     const total = newItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     return { cartItems: newItems, cartItemCount: count, cartTotal: total, isCartOpen: true };
+  }),
+  removeFromCart: (productId) => set((state) => {
+    const existing = state.cartItems.find(item => item.id === productId);
+    if (!existing) return state;
+    
+    let newItems;
+    if (existing.quantity > 1) {
+      newItems = state.cartItems.map(item => item.id === productId ? { ...item, quantity: item.quantity - 1 } : item);
+    } else {
+      newItems = state.cartItems.filter(item => item.id !== productId);
+    }
+    
+    const count = newItems.reduce((acc, item) => acc + item.quantity, 0);
+    const total = newItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    return { cartItems: newItems, cartItemCount: count, cartTotal: total };
   }),
 }));

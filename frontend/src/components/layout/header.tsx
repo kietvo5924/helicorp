@@ -1,13 +1,15 @@
 "use client";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu } from "lucide-react";
+import { Moon, Sun, Menu, ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useAppStore } from "@/store/useAppStore";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { toggleCart, cartItemCount } = useAppStore();
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +37,15 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
+          <button onClick={toggleCart} className="relative p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="Open Cart">
+            <ShoppingCart className="w-5 h-5" />
+            {mounted && cartItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                {cartItemCount}
+              </span>
+            )}
+          </button>
+          
           {mounted && (
             <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="Toggle Theme">
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

@@ -3,11 +3,11 @@
 import { useAppStore } from "@/store/useAppStore";
 import { GlassPanel } from "../ui/glass-panel";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, X } from "lucide-react";
+import { X, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function CartDrawer() {
-  const { isCartOpen, toggleCart, cartItemCount } = useAppStore();
+  const { isCartOpen, toggleCart, cartItemCount, cartItems, cartTotal, removeFromCart } = useAppStore();
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -38,24 +38,10 @@ export function CartDrawer() {
   };
 
   return (
-    <>
-      <button
-        onClick={toggleCart}
-        className="fixed top-6 right-6 z-50 p-3 bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:scale-105 transition-transform text-foreground"
-        aria-label="Open cart"
-      >
-        <ShoppingCart className="w-6 h-6" />
-        {cartItemCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-            {cartItemCount}
-          </span>
-        )}
-      </button>
-
-      <AnimatePresence>
-        {isCartOpen && (
-          <>
-            <motion.div
+    <AnimatePresence>
+      {isCartOpen && (
+        <>
+          <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -77,16 +63,27 @@ export function CartDrawer() {
                   </button>
                 </div>
                 
-                <div className="flex-1 p-6 flex flex-col items-center justify-center text-foreground/60">
+                <div className="flex-1 p-6 flex flex-col text-foreground overflow-y-auto">
                   {cartItemCount === 0 ? (
-                    <p>Your cart is empty.</p>
+                    <div className="flex flex-col items-center justify-center h-full text-foreground/50">
+                      <p>Your cart is empty.</p>
+                    </div>
                   ) : (
                     <div className="w-full space-y-4">
-                      <p className="text-center text-foreground">You have {cartItemCount} items ready.</p>
-                      <div className="flex justify-between items-center bg-foreground/5 p-4 rounded-lg text-foreground">
-                        <span>Premium Product</span>
-                        <span className="font-bold">$999</span>
-                      </div>
+                      {cartItems.map((item) => (
+                        <div key={item.id} className="flex justify-between items-center bg-foreground/5 border border-foreground/10 p-4 rounded-xl text-foreground text-sm">
+                          <div className="flex-1">
+                            <span className="block font-bold mb-1">{item.name}</span>
+                            <span className="text-foreground/70 font-medium">Qty: {item.quantity}</span>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <span className="font-bold text-primary">${(item.price * item.quantity).toLocaleString()}</span>
+                            <button onClick={() => removeFromCart(item.id)} className="p-2 hover:bg-foreground/10 rounded-full transition-colors text-red-500" aria-label="Remove item">
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -106,7 +103,6 @@ export function CartDrawer() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
-    </>
+    </AnimatePresence>
   );
 }

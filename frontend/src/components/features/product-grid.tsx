@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GlassPanel } from "../ui/glass-panel";
 import { useAppStore, Product } from "@/store/useAppStore";
 import { motion } from "framer-motion";
+import { ShoppingCart } from "lucide-react";
 
 export function ProductGrid() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -59,10 +60,11 @@ export function ProductGrid() {
                     <span className="text-2xl font-bold text-primary">${product.price.toLocaleString()}</span>
                     <button 
                       onClick={() => addToCart(product)}
-                      className="px-6 py-2 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-transform"
+                      className="px-6 py-3 bg-foreground text-background font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2"
                       aria-label={`Add ${product.name} to cart`}
                     >
-                      Buy
+                      <ShoppingCart className="w-4 h-4" />
+                      Add to Cart
                     </button>
                   </div>
                 </div>
