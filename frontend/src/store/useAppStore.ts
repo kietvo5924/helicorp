@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface Product {
   id: number;
@@ -25,15 +26,17 @@ interface AppState {
   toggleFavorite: (productId: number) => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
-  isCartOpen: false,
-  cartItems: [],
-  cartItemCount: 0,
-  cartTotal: 0,
-  favorites: [],
-  toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
-  addToCart: (product) => set((state) => {
-    const existing = state.cartItems.find(item => item.id === product.id);
+export const useAppStore = create<AppState>()(
+  persist(
+    (set) => ({
+      isCartOpen: false,
+      cartItems: [],
+      cartItemCount: 0,
+      cartTotal: 0,
+      favorites: [],
+      toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
+      addToCart: (product) => set((state) => {
+        const existing = state.cartItems.find(item => item.id === product.id);
     let newItems;
     if (existing) {
       newItems = state.cartItems.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
@@ -67,4 +70,13 @@ export const useAppStore = create<AppState>((set) => ({
       return { favorites: [...state.favorites, productId] };
     }
   }),
-}));
+}), {
+  name: 'helicorp-storage',
+  partialize: (state) => ({ 
+    cartItems: state.cartItems, 
+    cartItemCount: state.cartItemCount, 
+    cartTotal: state.cartTotal, 
+    favorites: state.favorites 
+  }),
+})
+);

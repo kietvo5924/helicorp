@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, ShoppingCart } from "lucide-react";
+import { Moon, Sun, Menu, ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -11,7 +11,7 @@ export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { toggleCart, cartItemCount } = useAppStore();
+  const { toggleCart, cartItemCount, favorites } = useAppStore();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -40,10 +40,21 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
+          {/* Favorites Icon */}
+          <Link href="/favorites" className="relative p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="View Favorites">
+            <Heart className="w-5 h-5" />
+            {mounted && favorites.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+                {favorites.length}
+              </span>
+            )}
+          </Link>
+
+          {/* Cart Icon */}
           <button onClick={toggleCart} className="relative p-2 hover:bg-foreground/10 rounded-full transition-colors text-foreground" aria-label="Open Cart">
             <ShoppingCart className="w-5 h-5" />
             {mounted && cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(10,132,255,0.5)]">
                 {cartItemCount}
               </span>
             )}

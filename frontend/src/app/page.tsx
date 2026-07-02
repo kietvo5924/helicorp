@@ -2,8 +2,6 @@
 
 import { useTheme } from "next-themes";
 import { ParallaxHero } from "@/components/features/parallax-hero";
-import { CartDrawer } from "@/components/features/cart-drawer";
-import { ChatbotFAB } from "@/components/features/chatbot-fab";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Cpu, Shield, Zap } from "lucide-react";
 import Link from "next/link";
@@ -141,10 +139,6 @@ export default function Home() {
           className="absolute w-[1200px] h-[1200px] border border-background/5 rounded-full border-dashed"
         />
       </section>
-
-      {/* Floating interactive components */}
-      <CartDrawer />
-      <ChatbotFAB />
       
     </main>
   );

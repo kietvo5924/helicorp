@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { CartDrawer } from "@/components/features/cart-drawer";
+import { ChatbotFAB } from "@/components/features/chatbot-fab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +39,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
+          <CartDrawer />
+          <ChatbotFAB />
           {children}
           <Footer />
         </ThemeProvider>
