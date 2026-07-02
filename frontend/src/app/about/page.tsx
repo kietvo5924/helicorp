@@ -11,20 +11,20 @@ export default function AboutPage() {
   });
 
   // Section 1 transforms
-  const opacity1 = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]);
-  const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 1.2]);
+  const opacity1 = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
+  const scale1 = useTransform(scrollYProgress, [0, 0.2], [1, 1.2]);
 
   // Section 2 transforms
-  const opacity2 = useTransform(scrollYProgress, [0.2, 0.4, 0.6], [0, 1, 0]);
-  const y2 = useTransform(scrollYProgress, [0.2, 0.4, 0.6], [100, 0, -100]);
+  const opacity2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.5], [0, 1, 1, 0]);
+  const y2 = useTransform(scrollYProgress, [0.25, 0.3, 0.45, 0.5], [100, 0, 0, -100]);
 
   // Section 3 transforms
-  const opacity3 = useTransform(scrollYProgress, [0.4, 0.6, 0.7], [0, 1, 0]);
-  const y3 = useTransform(scrollYProgress, [0.4, 0.6, 0.7], [100, 0, -100]);
+  const opacity3 = useTransform(scrollYProgress, [0.55, 0.6, 0.75, 0.8], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.55, 0.6, 0.75, 0.8], [100, 0, 0, -100]);
 
   // Section 4 transforms
-  const opacity4 = useTransform(scrollYProgress, [0.7, 0.8, 1], [0, 1, 1]);
-  const scale4 = useTransform(scrollYProgress, [0.7, 0.9], [0.8, 1]);
+  const opacity4 = useTransform(scrollYProgress, [0.85, 0.9, 1], [0, 1, 1]);
+  const scale4 = useTransform(scrollYProgress, [0.85, 0.9], [0.8, 1]);
 
   return (
     <main ref={containerRef} className="relative h-[400vh] bg-background text-foreground">
