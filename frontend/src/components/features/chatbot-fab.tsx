@@ -20,7 +20,7 @@ export function ChatbotFAB() {
           >
             <GlassPanel className="overflow-hidden shadow-2xl">
               <div className="bg-primary p-4 text-white flex justify-between items-center">
-                <h3 className="font-bold">Support Assistant</h3>
+                <div className="font-bold">Support Assistant</div>
                 <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-1 rounded-full transition-colors" aria-label="Close chat">
                   <X className="w-5 h-5" />
                 </button>

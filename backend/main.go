@@ -34,6 +34,7 @@ func main() {
 		api.GET("/health", handlers.HealthCheck)
 		api.POST("/webhook", handlers.HandleWebhook)
 		api.GET("/products", handlers.GetProducts)
+		api.GET("/products/:id", handlers.GetProductByID)
 	}
 
 	// Start server

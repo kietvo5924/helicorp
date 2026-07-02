@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { GlassPanel } from "../ui/glass-panel";
+import Link from "next/link";
 import { useAppStore, Product } from "@/store/useAppStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Heart, Search, Filter } from "lucide-react";
@@ -183,11 +184,14 @@ export function ProductGrid() {
                         </div>
                       )}
 
-                      <div className="h-64 overflow-hidden relative bg-foreground/5">
+                      <Link href={`/products/${product.id}`} className="block h-64 overflow-hidden relative bg-foreground/5 cursor-pointer">
                         <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 z-10">
+                          <span className="px-6 py-2 bg-background/80 backdrop-blur-md text-foreground font-bold rounded-full text-sm">View Details</span>
+                        </div>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={product.image_url} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                      </div>
+                      </Link>
                       <div className="p-8 flex flex-col flex-1">
                         <h3 className="text-2xl font-bold mb-3">{product.name}</h3>
                         <p className="text-foreground/70 mb-8 flex-1 text-sm leading-relaxed">{product.description}</p>

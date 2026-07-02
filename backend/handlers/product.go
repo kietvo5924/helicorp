@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 	"github.com/gin-gonic/gin"
 	"github.com/kietvo5924/helicorp/backend/models"
 )
 
-func GetProducts(c *gin.Context) {
-	products := []models.Product{
+var products = []models.Product{
 		{ID: 1, Name: "Helicorp Quantum", Description: "Next-gen computing power in a sleek, obsidian chassis.", Price: 1999.00, ImageURL: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=800&q=80", Tag: "Best Seller"},
 		{ID: 2, Name: "Helicorp Vision Pro", Description: "Immersive AR experience with 8K resolution and ultra-low latency.", Price: 3499.00, ImageURL: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=800&q=80", Tag: "Featured"},
 		{ID: 3, Name: "Helicorp Core X", Description: "The ultimate developer workstation with zero-latency compilation.", Price: 4999.00, ImageURL: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&q=80", Tag: ""},
@@ -22,8 +22,31 @@ func GetProducts(c *gin.Context) {
 		{ID: 12, Name: "Helicorp HyperDrive", Description: "100TB solid-state storage with instantaneous transfer speeds.", Price: 799.00, ImageURL: "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=800&q=80", Tag: "New"},
 	}
 
+func GetProducts(c *gin.Context) {
+
 	c.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   products,
 	})
+}
+
+func GetProductByID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
+		return
+	}
+
+	for _, p := range products {
+		if p.ID == uint(id) {
+			c.JSON(http.StatusOK, gin.H{
+				"status": "success",
+				"data":   p,
+			})
+			return
+		}
+	}
+
+	c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
 }

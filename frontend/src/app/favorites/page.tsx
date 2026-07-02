@@ -70,12 +70,16 @@ export default function FavoritesPage() {
                           <Heart className="w-5 h-5 fill-red-500 text-red-500" />
                         </button>
 
-                        <div className="h-64 overflow-hidden relative bg-foreground/5">
+                        <Link href={`/products/${product.id}`} className="block h-64 overflow-hidden relative bg-foreground/5 cursor-pointer">
+                          <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 z-10">
+                            <span className="px-6 py-2 bg-background/80 backdrop-blur-md text-foreground font-bold rounded-full text-sm">View Details</span>
+                          </div>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={product.image_url} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                        </div>
+                        </Link>
                         <div className="p-8 flex flex-col flex-1">
-                          <h3 className="text-2xl font-bold mb-3">{product.name}</h3>
+                          <h2 className="text-2xl font-bold mb-3">{product.name}</h2>
                           <p className="text-foreground/70 mb-8 flex-1 text-sm leading-relaxed">{product.description}</p>
                           <div className="flex items-center justify-between mt-auto">
                             <span className="text-2xl font-bold text-primary">${product.price.toLocaleString()}</span>

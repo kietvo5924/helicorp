@@ -26,7 +26,7 @@ export default function Home() {
       {/* Infinite Scrolling Marquee */}
       <div className="w-full overflow-hidden bg-primary/10 py-8 border-y border-primary/20">
         <motion.div 
-          className="flex whitespace-nowrap gap-12 font-black text-6xl text-primary/30 uppercase tracking-tighter"
+          className="flex whitespace-nowrap gap-12 font-black text-6xl text-primary/50 uppercase tracking-tighter"
           animate={{ x: [0, -1035] }}
           transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
         >
@@ -63,7 +63,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-foreground/60 max-w-3xl mx-auto"
+            className="text-xl text-foreground/70 max-w-3xl mx-auto"
           >
             We fuse radical design with uncompromising power. Explore the architecture that defines the next era of personal computing.
           </motion.p>
