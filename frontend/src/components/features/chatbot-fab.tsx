@@ -56,7 +56,7 @@ export function ChatbotFAB() {
         content: m.text
       }));
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/chat`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://helicorp-backend-8cba.onrender.com'}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg.text, history }),

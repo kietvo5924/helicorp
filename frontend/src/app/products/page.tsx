@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export default async function ProductsPage() {
   let initialProducts: Product[] = [];
   try {
-    const apiUrl = process.env.INTERNAL_API_URL || "http://backend:8080";
+    const apiUrl = process.env.INTERNAL_API_URL || "https://helicorp-backend-8cba.onrender.com";
     const res = await fetch(`${apiUrl}/api/products`, { cache: 'no-store' });
     const json = await res.json();
     if (json.status === "success") {

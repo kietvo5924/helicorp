@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
   try {
-    const apiUrl = process.env.INTERNAL_API_URL || "http://backend:8080";
+    const apiUrl = process.env.INTERNAL_API_URL || "https://helicorp-backend-8cba.onrender.com";
     const res = await fetch(`${apiUrl}/api/products/${params.id}`, { cache: "no-store" });
     const json = await res.json();
     if (json.status === "success" && json.data) {
@@ -45,7 +45,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ id: s
     // Determine the API URL depending on the environment.
     // In Docker, Next.js server accesses backend via internal network: http://backend:8080
     // In local dev, it might be localhost:8080.
-    const apiUrl = process.env.INTERNAL_API_URL || "http://backend:8080";
+    const apiUrl = process.env.INTERNAL_API_URL || "https://helicorp-backend-8cba.onrender.com";
     const res = await fetch(`${apiUrl}/api/products/${params.id}`, { cache: "no-store" });
     const json = await res.json();
     if (json.status === "success") {
