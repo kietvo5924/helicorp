@@ -8,5 +8,6 @@ type Product struct {
 	Description string    `json:"description"`
 	Price       float64   `json:"price"`
 	ImageURL    string    `json:"image_url"`
+	Tag         string    `json:"tag"`
 	CreatedAt   time.Time `json:"-"`
 }

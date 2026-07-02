@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   description?: string;
   image_url?: string;
+  tag?: string;
 }
 
 export interface CartItem extends Product {
@@ -17,9 +18,11 @@ interface AppState {
   cartItems: CartItem[];
   cartItemCount: number;
   cartTotal: number;
+  favorites: number[];
   toggleCart: () => void;
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
+  toggleFavorite: (productId: number) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -27,6 +30,7 @@ export const useAppStore = create<AppState>((set) => ({
   cartItems: [],
   cartItemCount: 0,
   cartTotal: 0,
+  favorites: [],
   toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
   addToCart: (product) => set((state) => {
     const existing = state.cartItems.find(item => item.id === product.id);
@@ -54,5 +58,13 @@ export const useAppStore = create<AppState>((set) => ({
     const count = newItems.reduce((acc, item) => acc + item.quantity, 0);
     const total = newItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     return { cartItems: newItems, cartItemCount: count, cartTotal: total };
+  }),
+  toggleFavorite: (productId) => set((state) => {
+    const isFav = state.favorites.includes(productId);
+    if (isFav) {
+      return { favorites: state.favorites.filter(id => id !== productId) };
+    } else {
+      return { favorites: [...state.favorites, productId] };
+    }
   }),
 }));
