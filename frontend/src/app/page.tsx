@@ -114,29 +114,35 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 w-full bg-foreground text-background flex flex-col items-center justify-center relative overflow-hidden">
+      <section className="py-32 w-full relative overflow-hidden flex flex-col items-center justify-center">
+        {/* Vibrant Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-blue-500/10 z-0"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+        
         <motion.div 
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
+          initial={{ scale: 0.9, opacity: 0, y: 30 }}
+          whileInView={{ scale: 1, opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center z-10 px-6"
+          className="relative z-10 px-6 max-w-4xl w-full text-center"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter">Ready to Upgrade?</h2>
-          <Link href="/products" className="inline-flex px-10 py-5 bg-primary text-white text-xl font-bold rounded-full shadow-[0_0_40px_rgba(10,132,255,0.5)] hover:scale-105 transition-transform">
-            Shop the Ecosystem
-          </Link>
+          <div className="bg-background/40 backdrop-blur-3xl border border-foreground/10 p-16 rounded-[3rem] shadow-2xl">
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60">
+              Ready to Upgrade?
+            </h2>
+            <p className="text-xl text-foreground/70 mb-12 max-w-2xl mx-auto">
+              Step into the future with Helicorp. Our entire premium ecosystem is waiting for you.
+            </p>
+            <Link href="/products" className="inline-flex px-12 py-5 bg-primary text-white text-xl font-bold rounded-full shadow-[0_0_40px_rgba(10,132,255,0.4)] hover:shadow-[0_0_60px_rgba(10,132,255,0.6)] hover:scale-105 transition-all duration-300">
+              Shop the Ecosystem
+            </Link>
+          </div>
         </motion.div>
         
         {/* Animated background elements */}
         <motion.div 
           animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
-          className="absolute w-[800px] h-[800px] border border-background/10 rounded-full border-dashed"
-        />
-        <motion.div 
-          animate={{ rotate: -360 }}
-          transition={{ repeat: Infinity, duration: 80, ease: "linear" }}
-          className="absolute w-[1200px] h-[1200px] border border-background/5 rounded-full border-dashed"
+          transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+          className="absolute w-[1000px] h-[1000px] border border-primary/20 rounded-full border-dashed pointer-events-none z-0 opacity-50"
         />
       </section>
       

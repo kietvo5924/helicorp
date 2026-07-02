@@ -11,8 +11,10 @@ export default function FavoritesPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const { favorites, toggleFavorite, addToCart } = useAppStore();
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/products`)
       .then(res => res.json())
       .then(data => {
@@ -29,13 +31,13 @@ export default function FavoritesPage() {
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold mb-4">Your Wishlist</h1>
           <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
-            {favoriteProducts.length > 0 
+            {mounted && favoriteProducts.length > 0 
               ? "Your curated collection of premium tech." 
               : "You haven't saved any products yet."}
           </p>
         </div>
 
-        {loading ? (
+        {!mounted || loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>

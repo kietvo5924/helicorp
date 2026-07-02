@@ -6,7 +6,7 @@ import { X, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function CartDrawer() {
-  const { isCartOpen, toggleCart, cartItemCount, cartItems, cartTotal, removeFromCart } = useAppStore();
+  const { isCartOpen, toggleCart, cartItemCount, cartItems, cartTotal, removeFromCart, toggleCartItemSelection } = useAppStore();
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -71,9 +71,24 @@ export function CartDrawer() {
                     <div className="w-full space-y-4">
                       {cartItems.map((item) => (
                         <div key={item.id} className="flex justify-between items-center bg-foreground/5 border border-foreground/10 p-4 rounded-xl text-foreground text-sm hover:bg-foreground/10 transition-colors">
-                          <div className="flex-1">
-                            <span className="block font-bold mb-1 text-base">{item.name}</span>
-                            <span className="text-foreground/70 font-medium">Qty: {item.quantity}</span>
+                          <div className="flex items-center gap-4">
+                            {/* Item Selection Checkbox */}
+                            <div className="relative flex items-center justify-center">
+                              <input 
+                                type="checkbox" 
+                                checked={item.selected !== false}
+                                onChange={() => toggleCartItemSelection(item.id)}
+                                className="peer appearance-none w-5 h-5 border-2 border-foreground/20 rounded bg-background checked:bg-primary checked:border-primary transition-colors cursor-pointer" 
+                              />
+                              <svg className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100" viewBox="0 0 14 10" fill="none">
+                                <path d="M1 5L4.5 8.5L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                            
+                            <div className="flex-1">
+                              <span className="block font-bold mb-1 text-base">{item.name}</span>
+                              <span className="text-foreground/70 font-medium">Qty: {item.quantity}</span>
+                            </div>
                           </div>
                           <div className="flex items-center gap-4">
                             <span className="font-bold text-primary text-lg">${(item.price * item.quantity).toLocaleString()}</span>
@@ -103,25 +118,13 @@ export function CartDrawer() {
                 {cartItemCount > 0 && (
                   <div className="p-6 border-t border-foreground/10 bg-foreground/5 mt-auto">
                     <div className="flex justify-between items-center mb-6">
-                      <span className="text-lg font-bold text-foreground/70">Total</span>
+                      <span className="text-lg font-bold text-foreground/70">Selected Total</span>
                       <span className="text-3xl font-black text-primary">${cartTotal.toLocaleString()}</span>
                     </div>
-                    
-                    <label className="flex items-start gap-3 mb-6 cursor-pointer group">
-                      <div className="relative flex items-center justify-center mt-1">
-                        <input type="checkbox" className="peer appearance-none w-5 h-5 border-2 border-foreground/20 rounded bg-transparent checked:bg-primary checked:border-primary transition-colors" />
-                        <svg className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100" viewBox="0 0 14 10" fill="none">
-                          <path d="M1 5L4.5 8.5L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <span className="text-sm text-foreground/70 group-hover:text-foreground transition-colors leading-relaxed">
-                        I agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a>
-                      </span>
-                    </label>
 
                     <button 
                       onClick={() => alert('Checkout initiated! (Mock feature)')}
-                      className="w-full py-4 bg-foreground text-background font-bold rounded-xl text-lg hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(var(--primary),0.3)] flex items-center justify-center gap-2"
+                      className="w-full py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(10,132,255,0.4)] flex items-center justify-center gap-2"
                     >
                       Checkout Now
                     </button>
