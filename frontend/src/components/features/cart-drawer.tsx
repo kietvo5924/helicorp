@@ -21,6 +21,7 @@ export function CartDrawer() {
       <button
         onClick={toggleCart}
         className="fixed top-6 right-6 z-50 p-3 bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:scale-105 transition-transform text-foreground"
+        aria-label="Open cart"
       >
         <ShoppingCart className="w-6 h-6" />
         {cartItemCount > 0 && (
@@ -50,7 +51,7 @@ export function CartDrawer() {
               <GlassPanel className="h-full flex flex-col">
                 <div className="p-4 border-b border-foreground/10 flex justify-between items-center text-foreground">
                   <h2 className="text-xl font-bold">Your Cart</h2>
-                  <button onClick={toggleCart} className="p-1 hover:bg-foreground/10 rounded-full transition-colors">
+                  <button onClick={toggleCart} className="p-1 hover:bg-foreground/10 rounded-full transition-colors" aria-label="Close cart">
                     <X className="w-6 h-6" />
                   </button>
                 </div>

@@ -21,7 +21,7 @@ export function ChatbotFAB() {
             <GlassPanel className="overflow-hidden shadow-2xl">
               <div className="bg-primary p-4 text-white flex justify-between items-center">
                 <h3 className="font-bold">Support Assistant</h3>
-                <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-1 rounded-full transition-colors">
+                <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-1 rounded-full transition-colors" aria-label="Close chat">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -36,7 +36,7 @@ export function ChatbotFAB() {
                   placeholder="Type a message..." 
                   className="flex-1 bg-transparent border border-foreground/20 rounded-full px-4 py-2 text-sm text-foreground focus:outline-none focus:border-primary"
                 />
-                <button className="p-2 bg-primary text-white rounded-full hover:scale-105 transition-transform">
+                <button className="p-2 bg-primary text-white rounded-full hover:scale-105 transition-transform" aria-label="Send message">
                   <Send className="w-4 h-4" />
                 </button>
               </div>
@@ -48,6 +48,7 @@ export function ChatbotFAB() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="p-4 bg-primary text-white rounded-full shadow-xl hover:scale-110 transition-transform"
+        aria-label={isOpen ? "Close chatbot" : "Open chatbot"}
       >
         <MessageCircle className="w-6 h-6" />
       </button>
