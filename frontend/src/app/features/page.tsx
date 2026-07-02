@@ -18,11 +18,11 @@ export default function FeaturesPage() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <main className="min-h-screen bg-background text-foreground pt-32 pb-24 overflow-hidden" ref={containerRef}>
+    <main className="relative min-h-screen bg-background text-foreground pt-32 pb-24 overflow-hidden" ref={containerRef}>
       
       {/* Background Graphic */}
-      <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none z-0" />
-      <div className="absolute bottom-0 left-0 w-[50rem] h-[50rem] bg-blue-600/10 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/3 pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-primary/10 rounded-full blur-[80px] md:blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-blue-600/10 rounded-full blur-[80px] md:blur-[120px] translate-y-1/3 -translate-x-1/3 pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
