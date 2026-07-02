@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export function ParallaxHero() {
@@ -13,6 +13,28 @@ export function ParallaxHero() {
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handlePreOrder = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/webhook`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "pre_order",
+          data: { source: "hero_section", product: "Helicorp Premium" }
+        })
+      });
+      if (res.ok) setSuccess(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
@@ -40,12 +62,14 @@ export function ParallaxHero() {
           Experience unmatched performance and premium design, engineered for the next generation.
         </motion.p>
         <motion.button
+          onClick={handlePreOrder}
+          disabled={loading || success}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-8 px-8 py-3 bg-primary text-white rounded-full font-semibold shadow-[0_0_20px_rgba(10,132,255,0.4)] hover:shadow-[0_0_30px_rgba(10,132,255,0.6)] transition-all hover:scale-105"
+          className="mt-8 px-8 py-3 bg-primary text-white rounded-full font-semibold shadow-[0_0_20px_rgba(10,132,255,0.4)] hover:shadow-[0_0_30px_rgba(10,132,255,0.6)] transition-all hover:scale-105 disabled:opacity-70 disabled:hover:scale-100"
         >
-          Pre-order Now
+          {loading ? "Processing..." : success ? "Reserved Successfully" : "Pre-order Now"}
         </motion.button>
       </motion.div>
 

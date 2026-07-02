@@ -9,12 +9,33 @@ import { useEffect, useState } from "react";
 export function CartDrawer() {
   const { isCartOpen, toggleCart, cartItemCount } = useAppStore();
   const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/webhook`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "checkout",
+          data: { items_count: cartItemCount, total: 999 }
+        })
+      });
+      if (res.ok) setSuccess(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -72,8 +93,12 @@ export function CartDrawer() {
 
                 {cartItemCount > 0 && (
                   <div className="p-4 border-t border-foreground/10">
-                    <button className="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-opacity">
-                      Checkout
+                    <button 
+                      onClick={handleCheckout}
+                      disabled={loading || success}
+                      className="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-opacity disabled:opacity-70"
+                    >
+                      {loading ? "Processing..." : success ? "Order Placed" : "Checkout"}
                     </button>
                   </div>
                 )}

@@ -27,4 +27,10 @@ func InitDB() {
 	}
 
 	log.Println("Database connected successfully.")
+
+	// Auto-migrate models
+	err = DB.AutoMigrate(&WebhookEvent{})
+	if err != nil {
+		log.Printf("Failed to auto-migrate database: %v", err)
+	}
 }

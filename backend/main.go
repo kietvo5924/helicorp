@@ -32,6 +32,7 @@ func main() {
 	api := r.Group("/api")
 	{
 		api.GET("/health", handlers.HealthCheck)
+		api.POST("/webhook", handlers.HandleWebhook)
 	}
 
 	// Start server
