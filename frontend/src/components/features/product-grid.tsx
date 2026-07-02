@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { GlassPanel } from "../ui/glass-panel";
 import { useAppStore, Product } from "@/store/useAppStore";
@@ -63,9 +63,14 @@ export function ProductGrid() {
     return filteredProducts.slice(start, start + itemsPerPage);
   }, [filteredProducts, currentPage]);
 
-  // Reset page when search or tag changes
+  // Reset page when search or tag changes, but not on initial mount
+  const isMounted = useRef(false);
   useEffect(() => {
-    setCurrentPage(1);
+    if (isMounted.current) {
+      setCurrentPage(1);
+    } else {
+      isMounted.current = true;
+    }
   }, [searchQuery, activeTag]);
 
   // Sync page to URL
