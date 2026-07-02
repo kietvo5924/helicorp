@@ -62,8 +62,15 @@ export const useAppStore = create<AppState>()(
     }
     
     const count = newItems.reduce((acc, item) => acc + item.quantity, 0);
-    const total = newItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const total = newItems.filter(item => item.selected !== false).reduce((acc, item) => acc + (item.price * item.quantity), 0);
     return { cartItems: newItems, cartItemCount: count, cartTotal: total };
+  }),
+  toggleCartItemSelection: (productId) => set((state) => {
+    const newItems = state.cartItems.map(item => 
+      item.id === productId ? { ...item, selected: item.selected === false ? true : false } : item
+    );
+    const total = newItems.filter(item => item.selected !== false).reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    return { cartItems: newItems, cartTotal: total };
   }),
   toggleFavorite: (productId) => set((state) => {
     const isFav = state.favorites.includes(productId);

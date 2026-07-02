@@ -78,6 +78,7 @@ export function CartDrawer() {
                                 type="checkbox" 
                                 checked={item.selected !== false}
                                 onChange={() => toggleCartItemSelection(item.id)}
+                                aria-label={`Select ${item.name} for checkout`}
                                 className="peer appearance-none w-5 h-5 border-2 border-foreground/20 rounded bg-background checked:bg-primary checked:border-primary transition-colors cursor-pointer" 
                               />
                               <svg className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100" viewBox="0 0 14 10" fill="none">
