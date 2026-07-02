@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterForm } from "../features/newsletter-form";
 
 export function Footer() {
   return (
@@ -28,11 +29,9 @@ export function Footer() {
           </ul>
         </div>
         <div className="col-span-2 md:col-span-1 mt-4 md:mt-0">
-          <div className="font-bold text-foreground mb-4">Legal</div>
-          <ul className="space-y-2 text-sm text-foreground/70">
-            <li><Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
-            <li><Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link></li>
-          </ul>
+          <div className="font-bold text-foreground mb-4">Newsletter</div>
+          <p className="text-sm text-foreground/70 mb-4">Stay updated with the latest in quantum computing and neural interfaces.</p>
+          <NewsletterForm />
         </div>
       </div>
       <div className="container mx-auto px-6 mt-12 pt-8 border-t border-foreground/10 text-center text-sm flex flex-col md:flex-row justify-between items-center text-foreground/70">

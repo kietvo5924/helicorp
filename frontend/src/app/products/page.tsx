@@ -1,16 +1,34 @@
 import { ProductGrid } from "@/components/features/product-grid";
-import { Suspense } from "react";
+import { Product } from "@/store/useAppStore";
+import { Metadata } from "next";
 
-export default function ProductsPage() {
+export const metadata: Metadata = {
+  title: "Products",
+  description: "Browse our premium ecosystem of next-generation technology.",
+};
+
+export const dynamic = 'force-dynamic';
+
+export default async function ProductsPage() {
+  let initialProducts: Product[] = [];
+  try {
+    const apiUrl = process.env.INTERNAL_API_URL || "http://backend:8080";
+    const res = await fetch(`${apiUrl}/api/products`, { cache: 'no-store' });
+    const json = await res.json();
+    if (json.status === "success") {
+      initialProducts = json.data;
+    }
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground pt-24 pb-12">
       <div className="container mx-auto px-6 mb-12">
         <h1 className="text-5xl font-bold mb-4">Our Products</h1>
         <p className="text-xl text-foreground/70">The pinnacle of technology, available today.</p>
       </div>
-      <Suspense fallback={<div className="flex justify-center py-20"><div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
-        <ProductGrid />
-      </Suspense>
+      <ProductGrid initialProducts={initialProducts} />
     </main>
   );
 }

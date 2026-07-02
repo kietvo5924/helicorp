@@ -19,6 +19,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     volumes:
       - helicorp_data:/data
     restart: unless-stopped

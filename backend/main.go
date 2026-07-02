@@ -35,6 +35,7 @@ func main() {
 		api.POST("/webhook", handlers.HandleWebhook)
 		api.GET("/products", handlers.GetProducts)
 		api.GET("/products/:id", handlers.GetProductByID)
+		api.POST("/chat", handlers.Chat)
 	}
 
 	// Start server
