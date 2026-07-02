@@ -2,6 +2,7 @@
 _bmad/
 _bmad-output/
 .agents/
+.agent/
 
 # IDE
 .vscode/
